@@ -120,7 +120,7 @@ const GenerateCourseButton = () => {
   }, outline)))));
 };
 
-const RawCourseButton = () => {
+const RGCButton = () => {
   const [open, setOpen] = React.useState(false);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(paragon.Button, {
     variant: "outline-primary",
@@ -129,24 +129,20 @@ const RawCourseButton = () => {
     title: "Generate Course With AI",
     isOpen: open,
     onClose: () => setOpen(false),
-    footerNode: /*#__PURE__*/React.createElement(paragon.ActionRow, null, /*#__PURE__*/React.createElement(paragon.ActionRow.Spacer, null), /*#__PURE__*/React.createElement(paragon.Button, {
+    footerNode: /*#__PURE__*/React.createElement(paragon.ActionRow, null, /*#__PURE__*/React.createElement("p", {
+      className: "small"
+    }, /*#__PURE__*/React.createElement(paragon.Hyperlink, {
+      destination: "#"
+    }, "Get help")), /*#__PURE__*/React.createElement(paragon.ActionRow.Spacer, null), /*#__PURE__*/React.createElement(paragon.Button, {
       variant: "tertiary",
       onClick: () => setOpen(false)
     }, "Cancel"), /*#__PURE__*/React.createElement(paragon.Button, {
-      onClick: handleSubmit,
-      disabled: loading
+      onClick: () => setOpen(false)
     }, "Generate")),
     isOverflowVisible: false
-  }, /*#__PURE__*/React.createElement(paragon.Form, null, /*#__PURE__*/React.createElement(paragon.Form.Label, null, "Secret Key"), /*#__PURE__*/React.createElement(paragon.Form.Control, {
-    type: "password",
-    placeholder: "Masukkan key"
-  }), /*#__PURE__*/React.createElement(paragon.Form.Label, null, "Instruksi"), /*#__PURE__*/React.createElement(paragon.Form.Control, {
-    as: "textarea",
-    rows: 5,
-    placeholder: "Masukkan instruksi Anda di sini..."
-  }))));
+  }, /*#__PURE__*/React.createElement("p", null, "ini seharusnya formulir")));
 };
 
 exports.GenerateCourseButton = GenerateCourseButton;
 exports.MyButton = MyButton;
-exports.RawCourseButton = RawCourseButton;
+exports.RGCButton = RGCButton;

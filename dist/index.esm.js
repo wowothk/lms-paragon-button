@@ -118,7 +118,7 @@ const GenerateCourseButton = () => {
   }, outline)))));
 };
 
-const RawCourseButton = () => {
+const RGCButton = () => {
   const [open, setOpen] = useState(false);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
     variant: "outline-primary",
@@ -127,22 +127,18 @@ const RawCourseButton = () => {
     title: "Generate Course With AI",
     isOpen: open,
     onClose: () => setOpen(false),
-    footerNode: /*#__PURE__*/React.createElement(ActionRow, null, /*#__PURE__*/React.createElement(ActionRow.Spacer, null), /*#__PURE__*/React.createElement(Button, {
+    footerNode: /*#__PURE__*/React.createElement(ActionRow, null, /*#__PURE__*/React.createElement("p", {
+      className: "small"
+    }, /*#__PURE__*/React.createElement(Hyperlink, {
+      destination: "#"
+    }, "Get help")), /*#__PURE__*/React.createElement(ActionRow.Spacer, null), /*#__PURE__*/React.createElement(Button, {
       variant: "tertiary",
       onClick: () => setOpen(false)
     }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
-      onClick: handleSubmit,
-      disabled: loading
+      onClick: () => setOpen(false)
     }, "Generate")),
     isOverflowVisible: false
-  }, /*#__PURE__*/React.createElement(Form, null, /*#__PURE__*/React.createElement(Form.Label, null, "Secret Key"), /*#__PURE__*/React.createElement(Form.Control, {
-    type: "password",
-    placeholder: "Masukkan key"
-  }), /*#__PURE__*/React.createElement(Form.Label, null, "Instruksi"), /*#__PURE__*/React.createElement(Form.Control, {
-    as: "textarea",
-    rows: 5,
-    placeholder: "Masukkan instruksi Anda di sini..."
-  }))));
+  }, /*#__PURE__*/React.createElement("p", null, "ini seharusnya formulir")));
 };
 
-export { GenerateCourseButton, MyButton, RawCourseButton };
+export { GenerateCourseButton, MyButton, RGCButton };
