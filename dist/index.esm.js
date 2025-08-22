@@ -118,4 +118,31 @@ const GenerateCourseButton = () => {
   }, outline)))));
 };
 
-export { GenerateCourseButton, MyButton };
+const RawCourseButton = () => {
+  const [open, setOpen] = useState(false);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+    variant: "outline-primary",
+    onClick: () => setOpen(true)
+  }, "Generate Course With AI"), /*#__PURE__*/React.createElement(StandardModal, {
+    title: "Generate Course With AI",
+    isOpen: open,
+    onClose: () => setOpen(false),
+    footerNode: /*#__PURE__*/React.createElement(ActionRow, null, /*#__PURE__*/React.createElement(ActionRow.Spacer, null), /*#__PURE__*/React.createElement(Button, {
+      variant: "tertiary",
+      onClick: () => setOpen(false)
+    }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
+      onClick: handleSubmit,
+      disabled: loading
+    }, "Generate")),
+    isOverflowVisible: false
+  }, /*#__PURE__*/React.createElement(Form, null, /*#__PURE__*/React.createElement(Form.Label, null, "Secret Key"), /*#__PURE__*/React.createElement(Form.Control, {
+    type: "password",
+    placeholder: "Masukkan key"
+  }), /*#__PURE__*/React.createElement(Form.Label, null, "Instruksi"), /*#__PURE__*/React.createElement(Form.Control, {
+    as: "textarea",
+    rows: 5,
+    placeholder: "Masukkan instruksi Anda di sini..."
+  }))));
+};
+
+export { GenerateCourseButton, MyButton, RawCourseButton };
