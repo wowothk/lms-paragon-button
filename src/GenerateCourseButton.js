@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import { Button, StandardModal, ActionRow, Form } from "@openedx/paragon";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
 
 export const GenerateCourseButton = () => {
   const [open, setOpen] = useState(false);
@@ -113,7 +113,7 @@ export const GenerateCourseButton = () => {
                 lineHeight: '1.6',
                 color: '#333'
               }}>
-                <ReactMarkdown
+                {/* <ReactMarkdown
                   components={{
                     h1: ({children}) => <h1 style={{color: '#2c3e50', borderBottom: '2px solid #3498db', paddingBottom: '8px'}}>{children}</h1>,
                     h2: ({children}) => <h2 style={{color: '#34495e', marginTop: '20px'}}>{children}</h2>,
@@ -125,9 +125,9 @@ export const GenerateCourseButton = () => {
                     li: ({children}) => <li style={{margin: '5px 0'}}>{children}</li>,
                     p: ({children}) => <p style={{margin: '10px 0'}}>{children}</p>
                   }}
-                >
+                > */}
                   {outline}
-                </ReactMarkdown>
+                {/* </ReactMarkdown> */}
               </div>
             </div>
           )}
