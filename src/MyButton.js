@@ -7,7 +7,7 @@ export const MyButton = () => {
   return (
     <>
       <Button variant="outline-primary" onClick={() => setOpen(true)}>
-        Extra Action
+        Extra Action Test
       </Button>
       <StandardModal
         title="This is a standard modal dialog"

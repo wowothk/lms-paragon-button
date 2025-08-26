@@ -6,7 +6,7 @@ const MyButton = () => {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
     variant: "outline-primary",
     onClick: () => setOpen(true)
-  }, "Extra Action"), /*#__PURE__*/React.createElement(StandardModal, {
+  }, "Extra Action Test"), /*#__PURE__*/React.createElement(StandardModal, {
     title: "This is a standard modal dialog",
     isOpen: open,
     onClose: () => setOpen(false),
@@ -118,27 +118,4 @@ const GenerateCourseButton = () => {
   }, outline)))));
 };
 
-const RGCButton = () => {
-  const [open, setOpen] = useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
-    variant: "outline-primary",
-    onClick: () => setOpen(true)
-  }, "Generate Course With AI"), /*#__PURE__*/React.createElement(StandardModal, {
-    title: "Generate Course With AI",
-    isOpen: open,
-    onClose: () => setOpen(false),
-    footerNode: /*#__PURE__*/React.createElement(ActionRow, null, /*#__PURE__*/React.createElement("p", {
-      className: "small"
-    }, /*#__PURE__*/React.createElement(Hyperlink, {
-      destination: "#"
-    }, "Get help")), /*#__PURE__*/React.createElement(ActionRow.Spacer, null), /*#__PURE__*/React.createElement(Button, {
-      variant: "tertiary",
-      onClick: () => setOpen(false)
-    }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
-      onClick: () => setOpen(false)
-    }, "Generate")),
-    isOverflowVisible: false
-  }, /*#__PURE__*/React.createElement("p", null, "ini seharusnya formulir")));
-};
-
-export { GenerateCourseButton, MyButton, RGCButton };
+export { GenerateCourseButton, MyButton };
