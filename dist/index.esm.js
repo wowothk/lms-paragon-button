@@ -44,6 +44,8 @@ const GenerateCourseButton = ({
     setLoading(false);
   };
   const handleSubmit = async () => {
+    console.log("Secret Key:", secretKey); // Debugging line
+    console.log("Session Id:", sessionId); // Debugging line
     if (!secretKey.trim() || !instruction.trim()) {
       setError("Please provide secret key and fill in instruction");
       return;
@@ -87,21 +89,38 @@ const GenerateCourseButton = ({
         })
       });
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("API Error Response:", errorText);
         throw new Error(`API Error: ${response.status} ${response.statusText}`);
       }
-      const data = await response.json();
+      const responseText = await response.text();
+      console.log("Raw API Response:", responseText);
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("Failed to parse API response as JSON:", responseText);
+        throw new Error(`Invalid JSON response from API: ${parseError.message}`);
+      }
       const generatedOutline = data.choices[0].message.content;
+      console.log("Generated Outline:", generatedOutline);
       setOutline(generatedOutline);
 
       // Step 2: Parse the outline and create course data
       let parsedOutline;
       try {
-        // Extract JSON from the response (in case there's extra text)
-        const jsonMatch = generatedOutline.match(/\[[\s\S]*\]/);
-        const jsonString = jsonMatch ? jsonMatch[0] : generatedOutline;
+        // 1. Remove Markdown code fences if present
+        let cleanText = generatedOutline.replace(/```json/g, "").replace(/```/g, "").trim();
+
+        // 2. Extract JSON array from the text
+        const jsonMatch = cleanText.match(/\[[\s\S]*\]/);
+        const jsonString = jsonMatch ? jsonMatch[0] : cleanText;
+
+        // 3. Parse into JS object
         parsedOutline = JSON.parse(jsonString);
-      } catch (parseError) {
-        throw new Error("Failed to parse outline JSON");
+        console.log("Parsed outline:", parsedOutline);
+      } catch (err) {
+        console.error("Failed to parse outline JSON:", err);
       }
 
       // Step 3: Prepare course data in the required format
@@ -113,7 +132,7 @@ const GenerateCourseButton = ({
       };
 
       // Step 4: Make POST request to generate course
-      const courseResponse = await fetch("/api/tutor_course_helper/generate-course/", {
+      const courseResponse = await fetch("http://local.openedx.io/api/tutor_course_helper/generate-course/", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -151,6 +170,7 @@ const GenerateCourseButton = ({
       onClick: () => {
         setOpen(false);
         resetForm();
+        window.location.reload();
       }
     }, "Close")) : /*#__PURE__*/React.createElement(ActionRow, null, /*#__PURE__*/React.createElement(ActionRow.Spacer, null), /*#__PURE__*/React.createElement(Button, {
       variant: "tertiary",
@@ -173,7 +193,8 @@ const GenerateCourseButton = ({
   }), /*#__PURE__*/React.createElement("p", {
     style: {
       marginTop: '20px',
-      fontSize: '16px'
+      fontSize: '16px',
+      textAlig: 'center'
     }
   }, "Please wait for a moment.")) : success ? /*#__PURE__*/React.createElement("div", {
     style: {
@@ -181,8 +202,24 @@ const GenerateCourseButton = ({
       padding: '40px 20px'
     }
   }, /*#__PURE__*/React.createElement(Alert, {
-    variant: "success"
-  }, "Your outline was generated successfully"), outline && /*#__PURE__*/React.createElement("div", {
+    variant: "success",
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '10px'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    fill: "#28a745",
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24px",
+    height: "24px",
+    viewBox: "0 0 52 52",
+    enableBackground: "new 0 0 52 52",
+    xmlSpace: "preserve"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M26,2C12.7,2,2,12.7,2,26s10.7,24,24,24s24-10.7,24-24S39.3,2,26,2z M39.4,20L24.1,35.5 c-0.6,0.6-1.6,0.6-2.2,0L13.5,27c-0.6-0.6-0.6-1.6,0-2.2l2.2-2.2c0.6-0.6,1.6-0.6,2.2,0l4.4,4.5c0.4,0.4,1.1,0.4,1.5,0L35,15.5 c0.6-0.6,1.6-0.6,2.2,0l2.2,2.2C40.1,18.3,40.1,19.3,39.4,20z"
+  })), "Your outline was generated successfully"), outline && /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: '20px',
       padding: '15px',
